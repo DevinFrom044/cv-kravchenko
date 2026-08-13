@@ -179,12 +179,18 @@ document.querySelectorAll('.reveal, .section-kicker, .narrative h2, .experience-
   observer.observe(element)
 })
 
-document.querySelectorAll('.app-trigger, .popover-close').forEach((button) => button.addEventListener('click', () => {
+document.querySelectorAll('.app-trigger, .popover-close').forEach((button) => button.addEventListener('click', (event) => {
+  event.stopPropagation()
   const card = button.closest('.app-card')
   const willOpen = !card.classList.contains('is-open')
+  document.querySelectorAll('.app-card.is-open').forEach((openCard) => {
+    if (openCard !== card) openCard.classList.remove('is-open')
+  })
   card.classList.toggle('is-open', willOpen)
   if (!willOpen) button.blur()
 }))
+
+document.addEventListener('click', () => document.querySelectorAll('.app-card.is-open').forEach((card) => card.classList.remove('is-open')))
 
 document.querySelectorAll('.app-card, .focus-card, .impact-grid article').forEach((item, index) => {
   item.dataset.parallax = String([0.045, -0.035, 0.055, -0.04][index % 4])

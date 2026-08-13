@@ -127,8 +127,9 @@
   .app-icons { display: grid; position: static; height: auto; grid-template-columns: repeat(4, 1fr); gap: 18px; margin-top: 31px; padding: 0; }
   .app-card, .app-card:nth-child(n) { position: relative; inset: auto; transform: none; justify-self: center; }
   .app-trigger img { width: 72px; height: 72px; border-radius: 17px; border-width: 2px; }
-  .app-popover, .app-card:nth-child(n + 5) .app-popover { position: fixed; top: auto; right: 16px; bottom: 16px; left: 16px; width: auto; transform: translateY(16px); }
-  .app-card:hover .app-popover, .app-card:focus-within .app-popover, .app-card.is-open .app-popover { transform: translateY(0); }
+  .app-popover, .app-card:nth-child(n + 5) .app-popover { position: fixed; top: auto; right: 16px; bottom: calc(16px + env(safe-area-inset-bottom)); left: 16px; width: auto; max-height: min(72svh, 620px); overflow-y: auto; transform: translateY(16px); }
+  .app-card:hover .app-popover, .app-card:focus-within .app-popover { opacity: 0; visibility: hidden; pointer-events: none; transform: translateY(16px); }
+  .app-card.is-open .app-popover { opacity: 1; visibility: visible; pointer-events: auto; transform: translateY(0); }
   .popover-close { display: block; }
   .experience-copy { padding-bottom: 90px; }
   .experience-copy-heading { margin-bottom: 35px; }
