@@ -125,7 +125,7 @@
   .app-portfolio { padding-top: 57px; padding-bottom: 57px; }
   .app-portfolio-row h2 { font-size: 40px; }
   .app-icons { display: grid; position: static; height: auto; grid-template-columns: repeat(4, 1fr); gap: 18px; margin-top: 31px; padding: 0; }
-  .app-card, .app-card:nth-child(n) { position: relative; inset: auto; transform: none; justify-self: center; }
+  .app-card, .app-card:nth-child(n) { position: static; inset: auto; transform: none !important; will-change: auto; justify-self: center; }
   .app-card.scroll-appear { filter: none; opacity: 1; }
   .app-trigger img { width: 72px; height: 72px; border-radius: 17px; border-width: 2px; }
   .app-popover, .app-card:nth-child(n + 5) .app-popover { position: fixed; top: auto; right: 16px; bottom: calc(16px + env(safe-area-inset-bottom)); left: 16px; width: auto; max-height: min(72svh, 620px); overflow-y: auto; transform: translateY(16px); }
