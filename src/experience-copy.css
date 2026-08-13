@@ -188,6 +188,19 @@ body { padding-top: 76px; }
 .header-cv { display: inline-flex; align-items: center; gap: 5px; font: 700 12px var(--mono); text-decoration: none; border: 1px solid var(--ink); padding: 6px 9px; transition: color .2s ease, background .2s ease; }
 .header-cv:hover, .header-cv:focus-visible { color: #fff; background: var(--ink); }
 
+/* Skills is a primary career signal: keep it calm, generous and easy to scan. */
+.skills { background: #fff; gap: 115px; padding-top: 150px; padding-bottom: 160px; }
+.skills .section-kicker { font-size: 12px; }
+.skills h2 { font-size: clamp(56px, 6vw, 88px); }
+.skills-list { border-top: 2px solid var(--ink); }
+.skills-list > div { grid-template-columns: 62px 240px 1fr; padding: 31px 0; border-top: 0; border-bottom: 1px solid #dad8d1; }
+.skills-list > div:last-child { border-bottom: 2px solid var(--ink); }
+.skills-list span { font-size: 12px; font-weight: 500; color: var(--orange); }
+.skills-list h3 { font-size: 20px; letter-spacing: -.035em; line-height: 1.25; }
+.skills-list p { font-size: 16px; line-height: 1.65; color: #363634; max-width: 610px; }
+.skills-list > div { transition: background .25s ease, padding-left .25s ease; }
+.skills-list > div:hover { padding-left: 15px; background: #f7f6f2; }
+
 @media (max-width: 800px) {
   body { padding-top: 65px; }
   .header-actions { gap: 10px; }
@@ -195,4 +208,10 @@ body { padding-top: 76px; }
   .contact-actions { display: flex; align-items: flex-start; flex-direction: column; gap: 22px; }
   .contact-actions .cv-link { font-size: 64px; gap: 14px; padding-bottom: 10px; }
   .contact .contact-link { font-size: 64px; gap: 14px; padding-bottom: 10px; }
+  .skills { padding: 92px 22px; }
+  .skills-list { margin-top: 35px; }
+  .skills-list > div { grid-template-columns: 38px 1fr; padding: 22px 0; }
+  .skills-list h3 { font-size: 18px; }
+  .skills-list p { grid-column: 2; font-size: 15px; margin-top: 9px; }
+  .skills-list > div:hover { padding-left: 0; background: transparent; }
 }
