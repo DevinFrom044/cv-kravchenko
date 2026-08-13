@@ -174,7 +174,7 @@ document.querySelector('#app').innerHTML = `
 const observer = new IntersectionObserver((entries) => entries.forEach((entry) => {
   if (entry.isIntersecting) entry.target.classList.add('is-visible')
 }), { threshold: 0.12 })
-document.querySelectorAll('.reveal, .section-kicker, .narrative h2, .experience-card, .focus-card, .app-card, .impact-grid article, .skills-list > div, .contact h2, .contact-link').forEach((element) => {
+document.querySelectorAll('.reveal, .section-kicker, .narrative h2, .experience-card, .focus-card, .impact-grid article, .skills-list > div, .contact h2, .contact-link').forEach((element) => {
   if (!element.classList.contains('reveal')) element.classList.add('scroll-appear')
   observer.observe(element)
 })
