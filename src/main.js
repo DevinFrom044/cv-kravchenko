@@ -41,18 +41,37 @@ const appCard = (app) => `
     </article>
   </div>`
 
+const toolGroups = [
+  { title: 'Design & Craft', tools: [['Figma', 'figma.com']] },
+  { title: 'UI Animation', tools: [['LottieFiles', 'lottiefiles.com'], ['Jitter', 'jitter.video'], ['After Effects', 'adobe.com']] },
+  { title: 'Core AI Tools', tools: [['Codex', 'openai.com'], ['Claude', 'anthropic.com'], ['NotebookLM', 'notebooklm.google'], ['Google Flow', 'labs.google'], ['Figma AI Agents', 'figma.com']] },
+  { title: 'Research Intelligence', tools: [['Sensor Tower', 'sensortower.com'], ['AppMagic', 'appmagic.rocks']] },
+  { title: 'Analytics', tools: [['Amplitude', 'amplitude.com']] },
+  { title: 'Team Communication', tools: [['Google Workspace', 'google.com'], ['Notion', 'notion.so'], ['Slack', 'slack.com']] }
+]
+
+const toolGroup = (group, index) => `
+  <article class="tool-group">
+    <span class="tool-index">${String(index + 1).padStart(2, '0')}</span>
+    <h3>${group.title}</h3>
+    <div class="tool-list">
+      ${group.tools.map(([name, domain]) => `<div class="tool-item"><img src="https://www.google.com/s2/favicons?domain=${domain}&sz=128" alt="${name} logo" /><span>${name}</span></div>`).join('')}
+    </div>
+  </article>`
+
 document.querySelector('#app').innerHTML = `
   <div class="page-noise"></div>
   <header class="site-header">
     <a class="wordmark" href="#top" aria-label="Oleksii Kravchenko home">OK<span>·</span></a>
     <nav aria-label="Main navigation">
       <a href="#portfolio">Portfolio</a>
+      <a href="#impact">Impact</a>
       <a href="#experience">Experience</a>
       <a href="#projects">Projects</a>
-      <a href="#skills">Skills</a>
+      <a href="#skills">Tools</a>
     </nav>
     <div class="header-actions">
-      <a class="header-cv" href="https://drive.google.com/file/d/126vpgi97HZmGf9_bQkYfJcPUozG9Hdw9/view?usp=sharing" target="_blank" rel="noreferrer">CV ${Icon({ name: 'external', size: 14 })}</a>
+      <a class="header-cv" href="https://drive.google.com/file/d/1pnJzuAJipnlDWrsVZ46rAfKHNK3TMUTb/view?usp=sharing" target="_blank" rel="noreferrer">CV ${Icon({ name: 'external', size: 14 })}</a>
       <a class="header-link" href="https://t.me/ovfromkyiv" target="_blank" rel="noreferrer">Let's talk ${Icon({ name: 'arrow', size: 16 })}</a>
     </div>
   </header>
@@ -68,12 +87,13 @@ document.querySelector('#app').innerHTML = `
           <a class="text-link" href="https://www.linkedin.com/in/avfromkyiv/" target="_blank" rel="noreferrer">LinkedIn ${Icon({ name: 'external', size: 15 })}</a>
           <a class="text-link" href="https://apps.apple.com/us/developer/gm-universeapps-limited/id1473276099" target="_blank" rel="noreferrer">App Store Apps ${Icon({ name: 'external', size: 15 })}</a>
           <a class="text-link" href="https://github.com/DevinFrom044" target="_blank" rel="noreferrer">GitHub ${Icon({ name: 'external', size: 15 })}</a>
+          <a class="text-link" href="https://www.instagram.com/ovfromkyiv" target="_blank" rel="noreferrer">Instagram ${Icon({ name: 'external', size: 15 })}</a>
         </div>
       </div>
       <div class="portrait-wrap reveal" data-parallax="0.13">
         <div class="portrait-meta top-note">Kyiv, Ukraine <span>↗</span></div>
         <div class="portrait-meta bottom-note">9 years in digital design</div>
-        <div class="portrait-frame"><img src="/oleksii-kravchenko.png" alt="Portrait of Oleksii Kravchenko" /></div>
+        <div class="portrait-frame"><img src="/oleksii-kravchenko.webp" alt="Portrait of Oleksii Kravchenko" /></div>
         <div class="orange-orb"></div>
       </div>
       <a class="scroll-cue" href="#experience">Scroll to explore ${Icon({ name: 'down' })}</a>
@@ -87,12 +107,32 @@ document.querySelector('#app').innerHTML = `
       </div>
     </section>
 
-    <section class="section-shell narrative" aria-label="Profile">
-      <p class="section-kicker">The short version</p>
+    <section id="impact" class="section-shell narrative" aria-label="Impact">
+      <p class="section-kicker">Impact</p>
       <h2>Design that gets<br/><em>all the way to production.</em></h2>
       <div class="narrative-grid">
-        <p>For 5 years at Universe Group / GuruApps, I helped build and scale subscription iOS products across an 8-app ecosystem.</p>
-        <p>My sweet spot is the connective tissue: product strategy, rigorous research, a resilient system, and enough engineering fluency to make the work real.</p>
+        <article class="narrative-area">
+          <span>01 / Discovery</span>
+          <h3>Product direction</h3>
+          <p>Market research, competitor and ASO analysis, creative research, and feature matrices that turn a broad opportunity into a focused product scope.</p>
+        </article>
+        <article class="narrative-area">
+          <span>02 / Growth</span>
+          <h3>Signals into gains</h3>
+          <p>Monetization and retention optimisation, push-notification initiatives, product metrics research, and feedback analysis that turns user pain into meaningful improvements.</p>
+        </article>
+        <article class="narrative-area">
+          <span>03 / Delivery</span>
+          <h3>Systems that scale</h3>
+          <p>Design engineering, scalable systems, and workflow automation that help teams move from validated decisions to production with less friction.</p>
+        </article>
+      </div>
+      <div class="impact-inline" aria-label="Selected product impact">
+        <div class="impact-grid">
+          <article><span class="impact-index">01</span><h3>CleanerGuru</h3><p>iOS utility</p><strong>+12%</strong><span>trial conversion lift from tested hypotheses</span><strong>+20%</strong><span>overall ARPU uplift</span><small>US App Store rating 4.3 → 4.5</small></article>
+          <article><span class="impact-index">02</span><h3>ReRoom</h3><p>AI interior design</p><strong>+20%</strong><span>end-to-end generation flow completion</span><strong>94%</strong><span>CSAT from research sessions with real users</span><small>Core AI generation workflow</small></article>
+          <article><span class="impact-index">03</span><h3>Notee</h3><p>AI note-taking</p><strong>$34</strong><span>LTV within 2 months of launch</span><strong>⌁</strong><span>watchOS expansion</span><small>Discovery, positioning & monetization</small></article>
+        </div>
       </div>
     </section>
 
@@ -131,32 +171,16 @@ document.querySelector('#app').innerHTML = `
       </div>
     </section>
 
-    <section class="section-shell impact" aria-labelledby="impact-title">
-      <p class="section-kicker">03 / Selected product impact</p>
-      <h2 id="impact-title">Small decisions.<br/><em>Measurable shifts.</em></h2>
-      <div class="impact-grid">
-        <article><span class="impact-index">01</span><h3>CleanerGuru</h3><p>iOS utility</p><strong>+12%</strong><span>trial conversion</span><strong>+20%</strong><span>ARPU from introductory offers</span><small>US App Store rating 4.3 → 4.5</small></article>
-        <article><span class="impact-index">02</span><h3>ReRoom</h3><p>AI interior design</p><strong>+20%</strong><span>generation completion</span><strong>94%</strong><span>CSAT</span><small>Core AI generation workflow</small></article>
-        <article><span class="impact-index">03</span><h3>Notee</h3><p>AI note-taking</p><strong>$34</strong><span>LTV growth</span><strong>⌁</strong><span>watchOS expansion</span><small>Discovery, positioning & monetization</small></article>
-      </div>
-    </section>
-
     <section id="skills" class="skills section-shell" aria-labelledby="skills-title">
-      <div><p class="section-kicker">04 / Skills</p><h2 id="skills-title">A hybrid<br/>practice<span class="accent">.</span></h2></div>
-      <div class="skills-list">
-        <div><span>01</span><h3>Product</h3><p>0→1 development, discovery, UX strategy, MVP definition, growth experiments, monetization & paywall strategy</p></div>
-        <div><span>02</span><h3>AI</h3><p>LLM applications, workflow design, prompt engineering, OpenAI API, Claude, Codex, Figma MCP, research automation</p></div>
-        <div><span>03</span><h3>Design engineering</h3><p>Design systems, tokens, Figma Variables & plugins, API integration, developer collaboration</p></div>
-        <div><span>04</span><h3>Research</h3><p>Interviews, usability testing, 5-second tests, concept validation, App Store intelligence, AI-assisted synthesis</p></div>
-        <div><span>05</span><h3>Technology</h3><p>GitHub, Supabase, Vercel, Railway, Docker basics, AWS S3 / CloudFront, Xcode workflows, SwiftUI/UIKit</p></div>
-      </div>
+      <div><p class="section-kicker">04 / Tools I use</p><h2 id="skills-title">The stack<br/>behind the work<span class="accent">.</span></h2></div>
+      <div class="tool-groups">${toolGroups.map(toolGroup).join('')}</div>
     </section>
 
     <section class="contact section-shell">
       <p class="section-kicker">Our Next Chapter</p>
       <div class="contact-actions">
         <a class="contact-link" href="https://t.me/ovfromkyiv" target="_blank" rel="noreferrer">Let’s talk ${Icon({ name: 'arrow', size: 26 })}</a>
-        <a class="cv-link" href="https://drive.google.com/file/d/126vpgi97HZmGf9_bQkYfJcPUozG9Hdw9/view?usp=sharing" target="_blank" rel="noreferrer">CV ${Icon({ name: 'external', size: 22 })}</a>
+        <a class="cv-link" href="https://drive.google.com/file/d/1pnJzuAJipnlDWrsVZ46rAfKHNK3TMUTb/view?usp=sharing" target="_blank" rel="noreferrer">CV ${Icon({ name: 'external', size: 22 })}</a>
       </div>
       <div class="contact-meta"><a href="tel:+380663600181">+380 66 360 01 81</a><a href="https://www.linkedin.com/in/avfromkyiv/" target="_blank" rel="noreferrer">linkedin.com/in/avfromkyiv ${Icon({ name: 'external', size: 14 })}</a><a href="https://apps.apple.com/us/developer/gm-universeapps-limited/id1473276099" target="_blank" rel="noreferrer">App Store portfolio ${Icon({ name: 'external', size: 14 })}</a><a href="https://github.com/DevinFrom044" target="_blank" rel="noreferrer">github.com/DevinFrom044 ${Icon({ name: 'external', size: 14 })}</a></div>
     </section>
@@ -167,7 +191,7 @@ document.querySelector('#app').innerHTML = `
 const observer = new IntersectionObserver((entries) => entries.forEach((entry) => {
   if (entry.isIntersecting) entry.target.classList.add('is-visible')
 }), { threshold: 0.12 })
-document.querySelectorAll('.reveal, .section-kicker, .narrative h2, .experience-card, .focus-card, .impact-grid article, .skills-list > div, .contact h2, .contact-link').forEach((element) => {
+document.querySelectorAll('.reveal, .section-kicker, .narrative h2, .experience-card, .focus-card, .impact-grid article, .tool-group, .contact h2, .contact-link').forEach((element) => {
   if (!element.classList.contains('reveal')) element.classList.add('scroll-appear')
   observer.observe(element)
 })
