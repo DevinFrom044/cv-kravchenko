@@ -79,13 +79,6 @@ document.querySelector('#app').innerHTML = `
       <a class="scroll-cue" href="#experience">Scroll to explore ${Icon({ name: 'down' })}</a>
     </section>
 
-    <section class="proof-strip">
-      <div><strong>4</strong><span>products taken<br/>from 0→1</span></div>
-      <div><strong>50<span>+</span></strong><span>user studies<br/>& validations</span></div>
-      <div><strong>8</strong><span>iOS products<br/>in the portfolio</span></div>
-      <div><strong>35<span>%</span></strong><span>faster design<br/>handoff</span></div>
-    </section>
-
     <section id="portfolio" class="app-portfolio section-shell" aria-label="Universe Group app portfolio">
       <p class="section-kicker">Portfolio / iOS apps</p>
       <div class="app-portfolio-row">
