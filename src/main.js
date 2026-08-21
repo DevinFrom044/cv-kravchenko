@@ -25,21 +25,193 @@ const appCards = [
   { id: 'visify', name: 'Visify', role: 'Product Designer', href: 'https://apps.apple.com/us/app/visify-ai-photo-generator/id6472172759', contribution: ['Analyzed the onboarding experience and first user interaction.', 'Designed a simplified introduction and activation flow, using behavioral insights to guide UX improvements.'], impact: ['≈ +15% generation start', 'C1: 22% → 27%'] },
   { id: 'assist', name: 'Ask Assist', role: '0→1 Product Designer (R&D)', href: 'https://apps.apple.com/us/app/ask-assist-ai-chat-bot/id6448989090', contribution: ['Contributed to the full product-building cycle: market research, competitor analysis, positioning and MVP definition.', 'Created the UX architecture, core user flows and design-system foundation, then prepared the launch.'], impact: ['Market opportunity → launch', '0→1 product'] },
   { id: 'cleaner-guru', name: 'Cleaner Guru', role: 'Product Designer', href: 'https://apps.apple.com/us/app/cleaner-guru-clean-up-storage/id1476380919', contribution: ['Ran multiple UX-research rounds and onboarding experiments; designed the flow that became the main one after a statistically significant conversion lift.', 'Explored monetization opportunities, introductory offers and new feature experiences; analyzed user feedback and App Store reviews.'], impact: ['+12% Trial Conversion', '≈ +20% ARPU', '−7% Cancellation rate', '4.3 → 4.5 US rating'] },
+  { id: 'keepclean', name: 'KeepClean', role: 'Product Management / Product Designer', href: 'https://apps.apple.com/us/app/keepclean-ai-storage-cleaner/id6752901737', contribution: ['Owned the improvement backlog and research-to-hypothesis pipeline, turning user feedback and competitor signals into product decisions.', 'Shipped Storage Analyzer, Email Cleaner and swipe-to-delete photo cleanup from a prioritised evidence-backed backlog.'], impact: ['44 reviews across 8 markets', '3 features shipped'], caseStudy: true },
   { id: 'translator-guru', name: 'Translator Guru', role: 'Product Designer', href: 'https://apps.apple.com/us/app/translator-guru-voice-text/id1458104794', contribution: ['Worked on the product UX, key user flows and conversion-focused experiences.', 'Collaborated with the team on monetization and the trial experience.'], impact: ['+25% Trial Conversion'] }
 ]
 
-const appCard = (app) => `
+const portfolioAppOrder = ['keepclean', 'reroom', 'notee', 'artica', 'visify', 'assist', 'cleaner-guru', 'translator-guru']
+
+const appCard = (app) => app.caseStudy ? `
   <div class="app-card">
-    <button class="app-trigger" type="button" aria-label="Show ${app.name} contribution"><img src="/apps/${app.id}.jpg" alt="${app.name} app icon" /></button>
-    <article class="app-popover">
-      <button class="popover-close" type="button" aria-label="Close ${app.name} details">×</button>
-      <div class="popover-title"><img src="/apps/${app.id}.jpg" alt="" /><div><h3>${app.name}</h3><p>${app.role}</p></div></div>
-      <p class="popover-label">My contribution</p>
-      ${app.contribution.map((item) => `<p class="popover-copy">${item}</p>`).join('')}
-      ${app.impact.length ? `<div class="popover-impact">${app.impact.map((item) => `<span>${item}</span>`).join('')}</div>` : ''}
-      <a href="${app.href}" target="_blank" rel="noreferrer">View in App Store ${Icon({ name: 'external', size: 14 })}</a>
+    <button class="app-trigger app-case-trigger" type="button" data-app-id="${app.id}" aria-haspopup="dialog" aria-controls="keepclean-case-study" aria-label="Open ${app.name} case study"><img src="/apps/${app.id}.jpg" alt="${app.name} app icon" /></button>
+  </div>` : `
+  <div class="app-card">
+    <button class="app-trigger app-case-trigger" type="button" data-app-id="${app.id}" aria-haspopup="dialog" aria-controls="app-case-study" aria-label="Open ${app.name} case study"><img src="/apps/${app.id}.jpg" alt="${app.name} app icon" /></button>
+  </div>`
+
+const keepCleanCaseStudy = `
+  <div class="case-study-modal" id="keepclean-case-study" role="dialog" aria-modal="true" aria-labelledby="keepclean-title" aria-hidden="true">
+    <button class="case-study-backdrop" type="button" aria-label="Close KeepClean case study"></button>
+    <article class="case-study-sheet">
+      <header class="case-study-header">
+        <span>Case study / 01</span>
+        <button class="case-study-close" type="button" aria-label="Close KeepClean case study">Close <b>×</b></button>
+      </header>
+      <div class="case-study-intro">
+        <img src="/apps/keepclean.jpg" alt="KeepClean app icon" />
+        <div>
+          <p class="case-study-type">Utility app · Product management · Research</p>
+          <h2 id="keepclean-title">KeepClean</h2>
+          <div class="case-study-tags"><span>Utility apps</span><span>Product management</span><span>Research</span></div>
+        </div>
+        <a class="case-study-store" href="https://apps.apple.com/us/app/keepclean-ai-storage-cleaner/id6752901737" target="_blank" rel="noreferrer">View in App Store ${Icon({ name: 'external', size: 15 })}</a>
+      </div>
+
+      <section class="case-study-carousel" aria-label="KeepClean product screens">
+        <div class="case-study-carousel-note">Product screens</div>
+        <div class="case-study-slides">
+          <figure><img src="/case-studies/keepclean-01.jpg" alt="KeepClean App Store product screen 1" /></figure>
+          <figure><img src="/case-studies/keepclean-02.jpg" alt="KeepClean App Store product screen 2" /></figure>
+          <figure><img src="/case-studies/keepclean-03.jpg" alt="KeepClean App Store product screen 3" /></figure>
+        </div>
+        <div class="case-study-carousel-controls" aria-label="Product screen carousel controls">
+          <button class="case-study-carousel-button is-previous" type="button" aria-label="Show previous product screens">${Icon({ name: 'arrow', size: 22 })}</button>
+          <button class="case-study-carousel-button" type="button" aria-label="Show next product screens">${Icon({ name: 'arrow', size: 22 })}</button>
+        </div>
+      </section>
+
+      <div class="case-study-content">
+        <section>
+          <p class="case-study-label">About project</p>
+          <p class="case-study-lead">KeepClean is a storage cleaner in the GuruApps portfolio operating in one of the most crowded and most complained-about App Store categories. For two months, the role extended beyond design into acting product management — owning the improvement backlog and hypothesis pipeline. The central question was not what to build next, but how to systematically extract that answer from negative reviews and competitors’ public performance.</p>
+        </section>
+        <section>
+          <p class="case-study-label">My role &amp; activities</p>
+          <ol class="case-study-activities">
+            <li><b>Acting Product Management</b><span>Owned the improvement backlog, shaped and prioritised onboarding A/B hypotheses, and established a weekly competitive-intelligence cycle. It tracked category players’ revenue and download dynamics against product changes and delivered at least two evidence-backed hypotheses each week.</span></li>
+            <li><b>Systematic Feedback Analysis</b><span>Analysed 44 one-to-three-star reviews across 8 markets over six months, grouped them into 8 root causes and qualified 82% as addressable through product changes. Identified the top complaint driver (36%) as the gap between expected “free” framing and the monetisation model, plus a core-flow misunderstanding around iOS Recently Deleted behaviour.</span></li>
+            <li><b>Competitive Feature Audit</b><span>Audited 8 category competitors across 91 user reviews, building a feature-frequency matrix that surfaced concrete product gaps.</span></li>
+            <li><b>Research to Shipped Product</b><span>Converted findings into a prioritised backlog and shipped three features: Storage Analyzer on the home screen, Email Cleaner, and swipe-to-delete photo cleanup.</span></li>
+          </ol>
+        </section>
+        <section class="case-study-outcome">
+          <p class="case-study-label">Outcome</p>
+          <p>User complaints and competitor signals became a structured backlog — and the backlog became shipped features. A supporting team dashboard with product, rating and issue filters, quote search and rating distribution turned review analysis from ad-hoc exports into an ongoing process.</p>
+        </section>
+      </div>
     </article>
   </div>`
+
+const appCaseMeta = {
+  notee: {
+    type: 'AI Products · 0→1', tags: ['AI Products', '0→1', 'iOS + watchOS'],
+    about: 'Notee is an AI note-taking app built on generative models, turning voice into structured text across iPhone and Apple Watch. Built 0→1 by an R&D team inside the GuruApps / Universe Group portfolio, it entered a category where the real differentiation had to come from onboarding, first-session value and monetisation rather than the model itself. The core challenge was making voice-to-text value obvious within seconds in a product that starts empty.',
+    activities: [
+      ['Market Research & Product Definition', 'Mapped competitor business models, monetisation mechanics and acquisition strategies, translating them into MVP scope, a monetisation hypothesis and a technical-debt backlog for later iterations.'],
+      ['First-Session Design & Empty State Strategy', 'Replaced the blank first screen with a ready-made demo document: an LLM-generated podcast conversation delivered as both audio and parsed transcript, letting users see voice-to-text working within seconds while discovering the product’s features.'],
+      ['Research Programme & Monetisation Testing', 'Built the validation practice across moderated and unmoderated sessions, depth interviews, 5-second and first-click tests on Userlytics, and designed around 40 A/B tests across onboarding and paywall.'],
+      ['Platform Expansion', 'Designed the watchOS recording flow with automatic backend sync, transcription and delivery into the main app.']
+    ],
+    outcome: 'The product reached payback within its first month: unit economics closed and the company moved it from validation into scaling. The demo-document approach became the activation pattern that solved the empty state, core-value demonstration and feature discovery in one artefact.'
+  },
+  reroom: {
+    type: 'AI Products · Design Engineering', tags: ['AI Products', 'Design Engineering', '0→1'],
+    about: 'ReRoom is an AI interior design generator that turns a room photo into styled redesigns. Built 0→1 and led for eight months, it relied on hundreds of generated style previews that had to be produced, versioned and shipped continuously. The challenge was designing a product whose logic is prompt architecture and building a production pipeline that could keep pace with it.',
+    activities: [
+      ['Market Research & Prompt Architecture', 'Analysed competitor business models, ad placements and creative strategy to map distribution, then authored the prompt library powering generation.'],
+      ['Content Production Pipeline', 'Wrote a Cursor + Replicate API script that generated style imagery from prompts and delivered it through S3 into the build, replacing manual asset production with a reproducible design-to-infrastructure-to-engineering workflow.'],
+      ['Analytics-Driven UX', 'Built Amplitude funnels across key flows, identified drop-off points in the long generation cycle, and translated them into prioritised design solutions.'],
+      ['Validation & Feature Design', 'Ran task-based and unmoderated Userlytics sessions, interviews and Typeform surveys; designed Projects for user-generated content and Stories for fast style discovery.']
+    ],
+    outcome: 'The product shipped a full generation experience with a self-sustaining content pipeline that removed asset production as a bottleneck. Unit economics did not close amid CPM volatility, while the work surfaced seasonal demand as a structural category insight and informed the go/no-go decision.'
+  },
+  visify: {
+    type: 'AI Products · Design Systems', tags: ['AI Products', 'Design Systems', 'Automation'],
+    about: 'Visify is an AI photo generator producing stylised portraits from user photos. The work addressed a category-specific problem: users were asked to pay for a generation without knowing what they would receive. That uncertainty appeared in reviews and in the gap between users who opened the app and those who started generating.',
+    activities: [
+      ['Design System Refactor', 'Rebuilt the system on a colour-token architecture and split it into independent onboarding and core-app modules so high-density A/B testing could run on its own release cycle.'],
+      ['Preview Automation & Build Optimisation', 'Built a pipeline that generated style previews from source photos in a few clicks, cutting per-style preparation time by about 20%, and moved preview content to S3 with engineering to reduce a build that had peaked around 400 MB.'],
+      ['Expectation-Setting UX', 'Designed a pre-generation flow showing likely results before users committed, resolving the uncertainty surfaced in review analysis.'],
+      ['Feature Ownership', 'Ran the full Magic Brush AI inpainting cycle from competitor research through first-iteration concept and subsequent improvements.']
+    ],
+    outcome: 'The pre-generation preview flow lifted generation starts by 25%. The engagement gain carried into monetisation through lower cancellation, longer retention, improved C1 and payment metrics, and a lower product CPA.'
+  },
+  assist: {
+    type: 'AI Products · 0→1', tags: ['AI Products', '0→1', 'Rapid Launch'],
+    about: 'Ask AI was the first AI product in the GuruApps portfolio: a personal assistant built on the OpenAI API and shipped by a newly formed three-person R&D team. With no established consumer-chat interaction patterns to copy, the product required original answers for conversational UX, generation states and expectations of AI output.',
+    activities: [
+      ['0→1 in 20 Days', 'Took the product from research and concept to App Store release in 20 days as sole designer, owning product research, UX architecture, onboarding, monetisation and the interface.'],
+      ['Assistant Library Architecture', 'Designed a library of around 20 task-specific AI assistants: preconfigured personas mapped to distinct jobs-to-be-done, each with its own entry point and context.'],
+      ['LLM Interaction Patterns', 'Designed generation states, model-error handling and expectation-setting patterns before conventions for consumer AI assistants were established.'],
+      ['Post-Launch Monetisation', 'Ran a continuous onboarding A/B programme across quiz personalisation, progressive feature discovery and paywall structure, tracking trial conversion, C1, annual-plan share, cancellation and review sentiment.']
+    ],
+    outcome: 'The product secured the company’s entry into the AI assistant category and established its first internal AI design expertise. The patterns and learnings from this launch became a foundation for every AI product that followed in the portfolio.'
+  },
+  artica: {
+    type: 'AI Products · 0→1', tags: ['AI Products', '0→1', 'ML Collaboration'],
+    about: 'Artica was the company’s first product built on generative text-to-image models, shipped by a three-person R&D team in 2024. Product quality depended directly on what the model had been trained to produce, making design and model decisions inseparable in a rapidly changing category.',
+    activities: [
+      ['Market Research & 0→1 Delivery', 'Ran category analysis, competitor teardown and revenue benchmarking to define the MVP and monetisation hypothesis, then took the product to release in one month as sole designer.'],
+      ['ML Collaboration', 'Partnered with ML engineers on generation quality, curating style-specific reference datasets of around 100 images per style and translating market-demand trends into model-training priorities.'],
+      ['Retention & Monetisation Experimentation', 'Designed the waiting-state experience and the product’s first push mechanics; created more than 40 A/B tests across paywall and onboarding.'],
+      ['Continuous Competitive Monitoring', 'Tracked category product and business metrics, onboarding, paywall and feature changes, turning them into a backlog targeting product and business metrics together.']
+    ],
+    outcome: 'Unit economics never closed, and after a sharp category-wide decline the team deliberately sunset the product and reallocated resources to higher-priority work. The case shows that knowing when a product should stop is as much a product skill as knowing how to launch one.'
+  },
+  'cleaner-guru': {
+    type: 'Redesign · Design Systems', tags: ['Redesign', 'Design Systems', 'Utility Apps'],
+    about: 'CleanerGuru is the flagship storage cleaner in the GuruApps / Universe Group portfolio and historically a top-1 utility in its App Store category. By 2022 it carried years of accumulated interface debt and category gaps. The task was a full redesign of a product already at meaningful scale, with the constraint that nothing could regress.',
+    activities: [
+      ['Full Product Redesign', 'Rebuilt every user flow and onboarding experience, clearing accumulated product and design debt and running a competitive audit to close functional gaps.'],
+      ['Design System Refactor', 'Replaced scattered styles and ad-hoc patterns with a unified component library aligned with the codebase, improving handoff and reducing implementation inconsistencies.'],
+      ['Engineering Partnership', 'Worked in tight collaboration with iOS engineers to ship a redesign of this scope on a compressed timeline.']
+    ],
+    outcome: 'The redesign shipped directly as the new baseline without A/B testing. It lifted core product and business metrics, improved retention, reduced cancellations and negative feedback, recovered the App Store rating from approximately 4.1 to 4.5, and became the design foundation for a major marketing scale-up peaking at around 10,000 trials per day.'
+  },
+  'translator-guru': {
+    type: 'Motion Design · Conversion', tags: ['Motion Design', 'Conversion', 'Utility Apps'],
+    about: 'TranslatorGuru was one of the top-performing apps in the GuruApps portfolio in 2021. Its onboarding relied entirely on static illustration, creating a ceiling on how well the product could communicate its value before asking users to pay.',
+    activities: [
+      ['Motion Pipeline Introduction', 'Set up the After Effects to Bodymovin to Lottie workflow and brought motion design into the product team’s process, replacing static onboarding illustration with animation.'],
+      ['Animated Onboarding Design', 'Designed the animated onboarding flow as part of a product-wide A/B test, working with the product team on variant structure.']
+    ],
+    outcome: 'The variant won on its first iteration with a 17% conversion uplift and became the control champion; no subsequent onboarding has beaten it. The motion pipeline introduced here became reusable across the portfolio.'
+  }
+}
+
+const appCaseStudy = `
+  <div class="case-study-modal" id="app-case-study" role="dialog" aria-modal="true" aria-labelledby="app-case-title" aria-hidden="true">
+    <button class="case-study-backdrop" type="button" aria-label="Close app case study"></button>
+    <article class="case-study-sheet">
+      <header class="case-study-header">
+        <span>Case study</span>
+        <button class="case-study-close" type="button" aria-label="Close app case study">Close <b>×</b></button>
+      </header>
+      <div class="app-case-content"></div>
+    </article>
+  </div>`
+
+const renderAppCaseStudy = (app) => {
+  const meta = appCaseMeta[app.id]
+  const content = document.querySelector('#app-case-study .app-case-content')
+  content.innerHTML = `
+    <div class="case-study-intro">
+      <img src="/apps/${app.id}.jpg" alt="${app.name} app icon" />
+      <div>
+        <p class="case-study-type">${meta.type}</p>
+        <h2 id="app-case-title">${app.id === 'assist' ? 'Ask AI' : app.name}</h2>
+        <div class="case-study-tags">${meta.tags.map((tag) => `<span>${tag}</span>`).join('')}</div>
+      </div>
+      <a class="case-study-store" href="${app.href}" target="_blank" rel="noreferrer">View in App Store ${Icon({ name: 'external', size: 15 })}</a>
+    </div>
+    <div class="case-study-content">
+      <section>
+        <p class="case-study-label">About project</p>
+        <p class="case-study-lead">${meta.about}</p>
+      </section>
+      <section>
+        <p class="case-study-label">My role &amp; activities</p>
+        <ol class="case-study-activities">${meta.activities.map(([title, copy]) => `<li><b>${title}</b><span>${copy}</span></li>`).join('')}</ol>
+      </section>
+      <section class="case-study-outcome">
+        <p class="case-study-label">Outcome</p>
+        <div>
+          <p class="case-study-outcome-copy">${meta.outcome}</p>
+          <div class="case-study-impact-list">${app.impact.map((item) => `<span>${item}</span>`).join('')}</div>
+        </div>
+      </section>
+    </div>`
+}
 
 const toolGroups = [
   { title: 'Design & Craft', tools: [['Figma', 'figma.com']] },
@@ -82,7 +254,7 @@ document.querySelector('#app').innerHTML = `
         <p class="eyebrow"><span class="status-dot"></span> Available for thoughtful products</p>
         <h1 id="hero-title">Oleksii<br/>Kravchenko<span class="accent">.</span></h1>
         <p class="role">AI Product Designer <i>/</i> Design Engineer</p>
-        <p class="intro">From discovering new opportunities and designing MVPs to building AI-powered workflows and scalable systems, I help teams transform ideas into validated products that create measurable impact.</p>
+        <p class="intro">Product designer working where product ownership, AI and engineering meet. I take products from first research to shipped, measured, and iterated — owning discovery, UX, monetisation experiments and the technical pipelines behind them. Looking for a role where design is a decision-making function, not a service one.</p>
         <div class="hero-actions">
           <a class="text-link" href="https://www.linkedin.com/in/avfromkyiv/" target="_blank" rel="noreferrer">LinkedIn ${Icon({ name: 'external', size: 15 })}</a>
           <a class="text-link" href="https://apps.apple.com/us/developer/gm-universeapps-limited/id1473276099" target="_blank" rel="noreferrer">App Store Apps ${Icon({ name: 'external', size: 15 })}</a>
@@ -96,14 +268,13 @@ document.querySelector('#app').innerHTML = `
         <div class="portrait-frame"><img src="/oleksii-kravchenko.webp" alt="Portrait of Oleksii Kravchenko" /></div>
         <div class="orange-orb"></div>
       </div>
-      <a class="scroll-cue" href="#experience">Scroll to explore ${Icon({ name: 'down' })}</a>
     </section>
 
     <section id="portfolio" class="app-portfolio section-shell" aria-label="Universe Group app portfolio">
       <p class="section-kicker">Portfolio / iOS apps</p>
       <div class="app-portfolio-row">
         <h2>Products built and scaled<br/><em>across the ecosystem.</em></h2>
-        <div class="app-icons">${appCards.map(appCard).join('')}</div>
+        <div class="app-icons">${portfolioAppOrder.map((id) => appCards.find((app) => app.id === id)).map(appCard).join('')}</div>
       </div>
     </section>
 
@@ -186,6 +357,8 @@ document.querySelector('#app').innerHTML = `
     </section>
   </main>
   <footer><span>© ${new Date().getFullYear()} Oleksii Kravchenko</span><span>Built with care in Kyiv</span></footer>
+  ${keepCleanCaseStudy}
+  ${appCaseStudy}
 `
 
 const observer = new IntersectionObserver((entries) => entries.forEach((entry) => {
@@ -196,7 +369,7 @@ document.querySelectorAll('.reveal, .section-kicker, .narrative h2, .experience-
   observer.observe(element)
 })
 
-document.querySelectorAll('.app-trigger, .popover-close').forEach((button) => button.addEventListener('click', (event) => {
+document.querySelectorAll('.app-trigger:not(.app-case-trigger), .popover-close').forEach((button) => button.addEventListener('click', (event) => {
   event.stopPropagation()
   const card = button.closest('.app-card')
   const willOpen = !card.classList.contains('is-open')
@@ -208,6 +381,36 @@ document.querySelectorAll('.app-trigger, .popover-close').forEach((button) => bu
 }))
 
 document.addEventListener('click', () => document.querySelectorAll('.app-card.is-open').forEach((card) => card.classList.remove('is-open')))
+
+const keepCleanModal = document.querySelector('#keepclean-case-study')
+const appCaseModal = document.querySelector('#app-case-study')
+const setCaseStudyOpen = (modal, isOpen) => {
+  modal.classList.toggle('is-open', isOpen)
+  modal.setAttribute('aria-hidden', String(!isOpen))
+  document.body.classList.toggle('case-study-open', isOpen)
+  if (isOpen) modal.querySelector('.case-study-close').focus()
+}
+document.querySelectorAll('.app-case-trigger').forEach((trigger) => trigger.addEventListener('click', (event) => {
+  event.stopPropagation()
+  const app = appCards.find((item) => item.id === trigger.dataset.appId)
+  if (app.id === 'keepclean') {
+    setCaseStudyOpen(keepCleanModal, true)
+  } else {
+    renderAppCaseStudy(app)
+    setCaseStudyOpen(appCaseModal, true)
+  }
+}))
+;[keepCleanModal, appCaseModal].forEach((modal) => modal.querySelectorAll('.case-study-close, .case-study-backdrop').forEach((button) => button.addEventListener('click', () => setCaseStudyOpen(modal, false))))
+document.addEventListener('keydown', (event) => {
+  if (event.key !== 'Escape') return
+  ;[keepCleanModal, appCaseModal].filter((modal) => modal.classList.contains('is-open')).forEach((modal) => setCaseStudyOpen(modal, false))
+})
+
+const caseStudySlides = keepCleanModal.querySelector('.case-study-slides')
+keepCleanModal.querySelectorAll('.case-study-carousel-button').forEach((button) => button.addEventListener('click', () => {
+  const direction = button.classList.contains('is-previous') ? -1 : 1
+  caseStudySlides.scrollBy({ left: direction * caseStudySlides.clientWidth * 0.8, behavior: 'smooth' })
+}))
 
 document.querySelectorAll('.app-card, .focus-card, .impact-grid article').forEach((item, index) => {
   item.dataset.parallax = String([0.045, -0.035, 0.055, -0.04][index % 4])
